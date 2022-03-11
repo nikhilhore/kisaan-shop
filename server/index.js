@@ -23,7 +23,7 @@ mongoose.connect(url, {
     else console.log('Connected to mongo Database');
 });
 
-app.get('/authenticate', (req, res) => {
+app.get('/authenticate', async (req, res) => {
     const { userId, tokenId } = req.cookies;
     const tokenExists = await Token.findOne({ userId, tokenId }).exec();
     let valid = false;
