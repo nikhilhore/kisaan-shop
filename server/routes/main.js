@@ -29,7 +29,7 @@ router.post('/login', async (req, res) => {
     res.cookie('tokenId', tokenId, { maxAge: 259200000, httpOnly: true });
     await token.save();
 
-    res.redirect('/dashboard');
+    res.end();
 });
 
 router.post('/signup', async (req, res) => {
@@ -54,7 +54,15 @@ router.post('/signup', async (req, res) => {
     const newUser = new User(payload);
     await newUser.save();
 
-    res.redirect('/login');
+    res.end();
+});
+
+router.get('/logout', async (req, res) => {
+    const { userId, tokenId } = req.cookies;
+    res.clearCookie('userId');
+    res.clearCookie('tokenId');
+    await Token.findOneAndDelete({ userId, tokenId }).exec();
+    res.end();
 });
 
 module.exports = router;

@@ -1,4 +1,25 @@
+import React from "react";
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+
 function Signup() {
+
+    React.useEffect(() => {
+        const signupBtn = document.getElementById('signup-btn');
+
+        signupBtn.addEventListener('click', async () => {
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+            const cpassword = document.getElementById('cpassword').value;
+            await axios.post('/signup', { firstName, lastName, email, phone, password, cpassword });
+            window.location.href = '/login';
+        });
+
+    }, []);
+
     return <>
         <div className="row mt-5">
             <div className="col-md-6 m-auto">
@@ -6,45 +27,44 @@ function Signup() {
                     <h1 className="text-center m-2">
                         <i className="fas fa-user-plus"></i> SignUp
                     </h1>
-                    <form action="/signup" className="m-2" method="POST">
+                    <div className="m-2">
                         <div className="form-group m-1 d-flex justify-content-between">
                             <div className="form-group">
-                                <label for="firstName">First Name</label>
+                                <label htmlFor="firstName">First Name</label>
                                 <input type="name" id="firstName" name="firstName" className="form-control"
                                     placeholder="Enter first name" />
                             </div>
                             <div className="form-group">
-                                <label for="lastName">Last Name</label>
+                                <label htmlFor="lastName">Last Name</label>
                                 <input type="name" id="lastName" name="lastName" className="form-control"
                                     placeholder="Enter last name" />
                             </div>
                         </div>
                         <div className="form-group m-1">
-                            <label for="email">Email</label>
+                            <label htmlFor="email">Email</label>
                             <input type="email" id="email" name="email" className="form-control" placeholder="Enter Email" />
                         </div>
                         <div className="form-group m-1">
-                            <label for="phone">Phone</label>
+                            <label htmlFor="phone">Phone</label>
                             <input type="number" id="phone" name="phone" className="form-control" placeholder="Enter phone number" />
                         </div>
                         <div className="form-group m-1">
-                            <label for="password">Password</label>
+                            <label htmlFor="password">Password</label>
                             <input type="password" id="password" name="password" className="form-control"
                                 placeholder="Create Password" />
                         </div>
                         <div className="form-group m-1">
-                            <label for="cpassword">Confirm Password</label>
+                            <label htmlFor="cpassword">Confirm Password</label>
                             <input type="password" id="cpassword" name="cpassword" className="form-control"
                                 placeholder="Confirm Password" />
                         </div>
                         <div className="text-center d-flex justify-content-between m-1 mt-2">
-                            <button type="submit" className="btn btn-primary btn-block">
+                            <button type="submit" id="signup-btn" className="btn btn-primary btn-block">
                                 SignUp
                             </button>
-                            <p className="lead m-1">Already have an Account? <a href="/login">Login</a></p>
+                            <p className="lead m-1">Already have an Account? <Link to='/login'>Login</Link></p>
                         </div>
-                    </form>
-
+                    </div>
                 </div>
             </div>
         </div>

@@ -34,8 +34,6 @@ app.get('/authenticate', async (req, res) => {
 
 app.use('/', require('./routes/main'));
 
-app.use('/', require('./routes/auth'));
-
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/build/index.html'));
 });

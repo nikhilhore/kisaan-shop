@@ -6,15 +6,16 @@ import axios from 'axios';
 
 async function renderPage() {
   const auth = await axios.get('/authenticate');
-  if (auth.valid === true) {
+  if (auth.data.valid === true) {
     ReactDOM.render(
       <React.StrictMode>
-        <App />
+        <App user={auth.data.user} />
       </React.StrictMode>,
       document.getElementById('root')
     );
   }
   else {
+
     ReactDOM.render(
       <React.StrictMode>
         <Home />
