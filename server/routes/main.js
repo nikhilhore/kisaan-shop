@@ -2,12 +2,18 @@ const express = require('express');
 const router = express.Router();
 const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcryptjs');
+const validator = require('validator');
 
 const User = require('./../models/User');
 const Token = require('./../models/Token');
 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
+
+    if (!validator.isEmail(email) || password == undefined) {
+        res.end();
+        return;
+    }
 
     const userExists = await User.findOne({ email }).exec();
     if (userExists == null) {
@@ -35,8 +41,14 @@ router.post('/login', async (req, res) => {
 router.post('/signup', async (req, res) => {
     const { firstName, lastName, email, phone, password, cpassword } = req.body;
 
-    if (firstName == '' || lastName == '' || email == '' || phone == '' || password == '') {
+    if (!validator.isEmail(email)) {
+        res.status(400).send({ message: "Email is not valid!" });
+        return;
+    }
+
+    if (firstName == undefined || lastName == undefined || phone == undefined || password == undefined || cpassword == undefined) {
         res.status(400).send({ message: "All fields should be filled" });
+        return;
     }
     const userExists = await User.findOne({ email }).exec();
     if (userExists != null) {
