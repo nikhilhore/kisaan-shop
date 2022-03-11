@@ -2,21 +2,22 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Welcome from './components/Welcome';
 import Login from './components/Login';
 import Signup from './components/Signup';
-import Header from './components/Header';
+import HomeHeader from './components/HomeHeader';
+import './Home.css';
 
-function App() {
+function Home() {
   return (
-    <>
-      <Header />
+    <div id="home">
       <BrowserRouter>
+        <HomeHeader />
         <Routes>
-          <Route path="/" element={<Welcome />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route exact path="/" element={<Welcome />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/signup" element={<Signup />} />
         </Routes>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 
-export default App;
+export default Home;

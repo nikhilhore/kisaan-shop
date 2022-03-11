@@ -17,9 +17,9 @@ function Login() {
     }, []);
 
     return <>
-        <div className="row mt-5">
+        <div className="mt-5">
             <div className="col-md-6 m-auto">
-                <div className="card card-body">
+                <div className="card card-body bg-dark">
                     <h1 className="text-center m-2"><i className="fas fa-sign-in-alt"></i> Login</h1>
                     <div className="m-2">
                         <div className="form-group m-1">
