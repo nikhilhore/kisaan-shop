@@ -23,18 +23,16 @@ mongoose.connect(url, {
     else console.log('Connected to mongo Database');
 });
 
-app.use('/', require('./routes/main'));
-
-app.use('/', async (req, res, next) => {
+app.get('/authenticate', (req, res) => {
     const { userId, tokenId } = req.cookies;
     const tokenExists = await Token.findOne({ userId, tokenId }).exec();
-    if (tokenExists == null) {
-        res.redirect('/');
-        return;
-    }
-    req.user = await User.findOne({ userId }).exec();
-    next();
+    let valid = false;
+    if (tokenExists != null) valid = true;
+    const user = await User.findOne({ userId }).exec();
+    res.send({ user, valid });
 });
+
+app.use('/', require('./routes/main'));
 
 app.use('/', require('./routes/auth'));
 

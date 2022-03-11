@@ -6,29 +6,7 @@ const bcrypt = require('bcryptjs');
 const User = require('./../models/User');
 const Token = require('./../models/Token');
 
-const loginRedirect = async (req, res, next) => {
-    const { userId, tokenId } = req.cookies;
-    const tokenExists = await Token.findOne({ userId, tokenId }).exec();
-    if (tokenExists != null) {
-        res.redirect('/dashboard');
-        return;
-    }
-    next();
-}
-
-router.get('/', loginRedirect, async (req, res) => {
-    res.end();
-});
-
-router.get('/login', loginRedirect, (req, res) => {
-    res.end();
-});
-
-router.get('/signup', loginRedirect, (req, res) => {
-    res.end();
-});
-
-router.post('/login', loginRedirect, async (req, res) => {
+router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     const userExists = await User.findOne({ email }).exec();
@@ -54,7 +32,7 @@ router.post('/login', loginRedirect, async (req, res) => {
     res.redirect('/dashboard');
 });
 
-router.post('/signup', loginRedirect, async (req, res) => {
+router.post('/signup', async (req, res) => {
     const { firstName, lastName, email, phone, password, cpassword } = req.body;
 
     if (firstName == '' || lastName == '' || email == '' || phone == '' || password == '') {
