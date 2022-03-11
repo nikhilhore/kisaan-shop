@@ -17,15 +17,15 @@ const loginRedirect = async (req, res, next) => {
 }
 
 router.get('/', loginRedirect, async (req, res) => {
-    res.render('welcome');
+    res.end();
 });
 
 router.get('/login', loginRedirect, (req, res) => {
-    res.render('login');
+    res.end();
 });
 
 router.get('/signup', loginRedirect, (req, res) => {
-    res.render('signup');
+    res.end();
 });
 
 router.post('/login', loginRedirect, async (req, res) => {

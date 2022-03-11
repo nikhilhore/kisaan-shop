@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const expressLayouts = require('express-ejs-layouts');
 require('dotenv').config();
 const cookieParser = require('cookie-parser');
 
@@ -15,9 +14,6 @@ app.use(express.static(path.resolve(__dirname, '../client/build')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-app.use(expressLayouts);
-app.set('view engine', 'ejs');
 
 mongoose.connect(url, {
     useNewUrlParser: true,
@@ -43,7 +39,7 @@ app.use('/', async (req, res, next) => {
 app.use('/', require('./routes/auth'));
 
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, '../client/build/index.html'));
 });
 
 app.listen(port, () => {

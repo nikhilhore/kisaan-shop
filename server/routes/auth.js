@@ -5,7 +5,7 @@ const User = require('./../models/User');
 const Token = require('./../models/Token');
 
 router.get('/dashboard', async (req, res) => {
-    res.render('dashboard', { user: req.user });
+    res.end();
 });
 
 router.get('/logout', async (req, res) => {
